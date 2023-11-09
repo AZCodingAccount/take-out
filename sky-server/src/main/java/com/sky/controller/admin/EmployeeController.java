@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -40,14 +41,14 @@ public class EmployeeController {
      * @param employeeLoginDTO
      * @return
      */
-    @ApiOperation(value="员工登录")
+    @ApiOperation(value = "员工登录")
     @PostMapping("/login")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
         Employee employee = employeeService.login(employeeLoginDTO);
 
-        //登录成功后，生成jwt令牌
+        // 登录成功后，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.EMP_ID, employee.getId());
         String token = JwtUtil.createJWT(
@@ -66,14 +67,33 @@ public class EmployeeController {
     }
 
     /**
-     * 退出
-     *
-     * @return
-     */
+     * @param
+     * @return com.sky.result.Result<java.lang.String>
+     * @author AlbertZhang
+     * @description TODO
+     * @date 21:21 2023-11-09
+     **/
     @ApiOperation("员工登出")
     @PostMapping("/logout")
     public Result<String> logout() {
         return Result.success();
     }
+
+
+   /**
+    * @author AlbertZhang
+    * @description TODO
+    * @date 21:28 2023-11-09
+    * @param employeeDTO
+    * @return com.sky.result.Result<java.lang.String>
+    **/
+    @ApiOperation("新增员工")
+    @PostMapping()
+    public Result<String> save(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("新增员工，员工信息为：{}", employeeDTO);
+        Result<String> result = employeeService.save(employeeDTO);
+        return result;
+    }
+
 
 }
