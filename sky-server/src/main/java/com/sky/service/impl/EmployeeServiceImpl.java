@@ -132,4 +132,53 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
+    /**
+     * @param id
+     * @param status
+     * @return void
+     * @author AlbertZhang
+     * @description 启用或禁用员工账号
+     * @date 20:36 2023-11-11
+     **/
+    @Override
+    @Transactional
+    public void startOrStop(Long id, Integer status) {
+        // 直接调用这个方法，这样更新状态和更新员工信息都可以调用这个方法
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * @param id
+     * @return com.sky.entity.Employee
+     * @author AlbertZhang
+     * @description 根据id查询员工信息
+     * @date 21:13 2023-11-11
+     **/
+    @Override
+    public Employee selectByID(Long id) {
+        Employee employee = employeeMapper.selectByID(id);
+        return employee;
+    }
+
+    /**
+     * @param employeeDTO
+     * @return void
+     * @author AlbertZhang
+     * @description 更新员工信息
+     * @date 2023-11-11
+     **/
+    @Transactional
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        // 把employeeDTO里面的属性拷贝到employee里面
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        // 接下来的公共属性就不再考虑了，到时候自己加上注解采用AOP自动填充了，之前的修改状态也是
+        employeeMapper.update(employee);
+    }
 }

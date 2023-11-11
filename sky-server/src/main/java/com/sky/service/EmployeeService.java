@@ -33,4 +33,32 @@ public interface EmployeeService {
      * @return com.sky.result.Result<com.sky.result.PageResult>
      **/
     Result<PageResult> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * @author AlbertZhang
+     * @description 启用或禁用员工账号
+     * @date 20:36 2023-11-11
+     * @param id
+     * @param status
+     * @return void
+     **/
+    void startOrStop(Long id, Integer status);
+
+    /**
+     * @author AlbertZhang
+     * @description 根据id查询员工信息
+     * @date 21:13 2023-11-11
+     * @param id
+     * @return com.sky.entity.Employee
+     **/
+    Employee selectByID(Long id);
+
+    /**
+     * @author AlbertZhang
+     * @description 更新员工信息
+     * @date 2023-11-11
+     * @param employeeDTO
+     * @return void
+     **/
+    void update(EmployeeDTO employeeDTO);
 }

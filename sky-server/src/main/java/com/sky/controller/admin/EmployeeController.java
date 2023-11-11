@@ -11,8 +11,7 @@ import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -108,6 +107,48 @@ public class EmployeeController {
         log.info("员工分页查询：{}",employeePageQueryDTO);
         return employeeService.pageQuery(employeePageQueryDTO);
     }
+
+    /**
+     * @author AlbertZhang
+     * @description 启用或禁用员工账号
+     * @date 20:35 2023-11-11
+     * @param id
+     * @param status
+     * @return com.sky.result.Result
+     **/
+    @ApiOperation("启用，禁用员工账号接口")
+    @PostMapping("/status/{status}")
+    public Result startOrStop(@ApiParam("员工id") @RequestParam Long id ,
+                              @ApiParam("员工账号状态") @PathVariable Integer status){
+        log.info("启用或禁用员工账号：{},{}",id,status);
+        employeeService.startOrStop(id,status);
+        return Result.success();
+    }
+
+    /**
+     * @author AlbertZhang
+     * @description 根据id查询员工信息
+     * @date 21:16 2023-11-11
+     * @param id
+     * @return com.sky.result.Result<com.sky.entity.Employee>
+     **/
+    @ApiOperation("根据id查询员工信息")
+    @GetMapping("/{id}")
+    public Result<Employee> selectByID(@ApiParam("员工id") @PathVariable Long id){
+        log.info("根据id查询员工信息:{}",id);
+        Employee employee=employeeService.selectByID(id);
+        return Result.success(employee);
+    }
+
+    @ApiOperation("更新员工信息")
+    @PutMapping()
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("更新员工信息：{}",employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
+
 
 
 }
