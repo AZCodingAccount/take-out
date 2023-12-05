@@ -1,6 +1,11 @@
 package com.sky.service;
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
+import com.sky.vo.DishVO;
+
+import java.util.List;
 
 /**
  * @program: sky-take-out
@@ -19,4 +24,49 @@ public interface DishService {
 
     void save(DishDTO dish);
 
+    /**
+     * @author AlbertZhang
+     * @description 根据条件分页查询
+     * @date 2023-12-01 19:55
+     * @param dishPageQueryDTO
+     * @return com.sky.result.PageResult
+     **/
+    PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * @author AlbertZhang
+     * @description 根据id删除菜品
+     * @date 2023-12-01 20:19
+     * @param ids
+     * @return void
+     **/
+    void deleteByIds(List<Long> ids);
+
+    /**
+     * @author AlbertZhang
+     * @description 根据id查询菜品
+     * @date 2023-12-01 21:01
+     * @param id
+     * @return com.sky.vo.DishVO
+     **/
+    DishVO selectById(Integer id);
+
+    /**
+     * @author AlbertZhang
+     * @description 修改菜品信息
+     * @date 2023-12-01 21:10
+     * @param dishDTO
+     * @return void
+     **/
+    void update(DishDTO dishDTO);
+
+    /**
+     * @author AlbertZhang
+     * @description 修改菜品起售停售状态
+     * @date 2023-12-01 21:29
+     * @param id
+     * @param status
+     * @return void
+     **/
+    void startOrStop(Long id, Integer status);
 }
