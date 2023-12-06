@@ -2,6 +2,7 @@ package com.sky.service;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.vo.DishVO;
 
@@ -69,4 +70,13 @@ public interface DishService {
      * @return void
      **/
     void startOrStop(Long id, Integer status);
+
+    /**
+     * @author AlbertZhang
+     * @description 根据分类id查询所属菜品
+     * @date 2023-12-06 15:17
+     * @param categoryId
+     * @return java.util.List<com.sky.entity.Dish>
+     **/
+    List<Dish> list(Long categoryId);
 }

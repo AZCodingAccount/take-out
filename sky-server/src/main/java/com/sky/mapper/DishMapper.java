@@ -63,12 +63,22 @@ public interface DishMapper {
     void deleteDishAndFlavorsById(Long id);
 
     /**
+     * @param dishDTO
+     * @return void
      * @author AlbertZhang
      * @description 更新菜品表
      * @date 2023-12-01 21:12
-     * @param dishDTO
-     * @return void
      **/
     @AutoFill(OperationType.UPDATE)
     void update(Dish dishDTO);
+
+    /**
+     * @param categoryId
+     * @return java.util.List<com.sky.entity.Dish>
+     * @author AlbertZhang
+     * @description 根据分类id查询所有菜品
+     * @date 2023-12-06 15:19
+     **/
+    @Select("select * from sky_take_out.dish where category_id=#{categoryId}")
+    List<Dish> getDishesById(Long categoryId);
 }

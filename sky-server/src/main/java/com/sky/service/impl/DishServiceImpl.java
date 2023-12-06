@@ -162,4 +162,17 @@ public class DishServiceImpl implements DishService {
                 .build();
         dishMapper.update(dish);
     }
+
+    /**
+     * @author AlbertZhang
+     * @description 根据分类id查询所属菜品
+     * @date 2023-12-06 15:17
+     * @param categoryId
+     * @return java.util.List<com.sky.entity.Dish>
+     **/
+    @Override
+    public List<Dish> list(Long categoryId) {
+        // 根据id查询，不需查询出菜品的口味数据
+        return dishMapper.getDishesById(categoryId);
+    }
 }
